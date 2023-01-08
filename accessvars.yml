@@ -1,0 +1,12 @@
+---
+# This playbook accesses host_vars. It does not get from running config on device. 
+
+- name: "Print Info"
+  hosts: us 
+  gather_facts: no 
+
+  tasks:
+    - name: "Print host info"
+      debug: 
+        msg: "{{ hostvars[ansible_host]['ospf']['networks'] }}"
+        #msg: "{{ hostvars[ansible_host].ospf.networks }}"

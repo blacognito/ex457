@@ -1,0 +1,7 @@
+---
+
+- name: ""
+  hosts: us
+  gather_facts: false
+  connection: network_cli
+
