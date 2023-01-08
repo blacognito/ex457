@@ -35,3 +35,77 @@ subscription-manager attach --auto
 # Answer 'y' on all prompts. Update takes a while.
 sudo dnf update
 ```
+
+
+## #3 Ansible Installation
+
+```bash
+# Check Pythonn version
+python3 --version
+
+# If version is lower than 3.8, then update python.
+sudo yum install python3.9
+
+# Install ansible
+pip3.9 install ansible
+
+#Check ansible version
+ansible --version
+
+# Install paramiko
+pip3.9 install paramiko
+```
+
+## #4 EVE-NG Lab Setup
+<br>
+
+### #4-1 - Cisco Devices
+```bash
+conf t
+hostname R2
+ip domain-name cisco.com
+ip ssh version 2
+crypto key generate rsa modulus 1024
+line vty 0 4
+transport input ssh
+login local
+exit
+username blacognito privilege 15 secret cisco
+int g0/0
+ip address 192.168.0.102 255.255.255.0
+no shut
+end
+wr
+```
+Alternative configuration:
+```bash
+conf t
+hostname R3
+ip domain-name cisco.com
+ip ssh version 2
+ip ssh server algorithm kex diffie-hellman-group14-sha1 diffie-hellman-group-exchange-sha1
+ip ssh server algorithm encryption aes256-ctr aes192-ctr aes128-ctr aes256-cbc aes192-cbc aes128-cbc
+crypto key generate rsa modulus 1024
+line vty 0 4
+transport input ssh
+login local
+exit
+username blacognito privilege 15 secret cisco
+vrf definition MGMT
+address-family ipv4
+int g0/0
+vrf forwarding MGMT
+ip address 192.168.0.101 255.255.255.0
+no shut
+end
+wr
+```
+Log into the devices to create a fingerprint:
+```bash
+ssh blacognito@192.168.0.101
+```
+Command to troubleshoot if the login doesnt work:
+```bash
+ssh -vvvv blacognito@192.168.0.101
+```
+Might be that you have to remove an RSA key fingerprint from `~/.ssh/known_hosts`
