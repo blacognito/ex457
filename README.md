@@ -109,3 +109,20 @@ Command to troubleshoot if the login doesnt work:
 ssh -vvvv blacognito@192.168.0.101
 ```
 Might be that you have to remove an RSA key fingerprint from `~/.ssh/known_hosts`
+
+
+### #4-2 - VyOS Device
+```bash
+# username: vyos
+# password: vyos
+
+configure
+set interface ethernet eth0 address 192.168.0.104/24
+commit
+# 'show' to see running config
+
+set service ssh port 22
+commit
+
+save
+```
