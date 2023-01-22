@@ -61,6 +61,7 @@ pip3.9 install paramiko
 
 ### #4-1 - Cisco Devices
 ```bash
+# Router Config
 conf t
 hostname R2
 ip domain-name cisco.com
@@ -73,6 +74,23 @@ exit
 username blacognito privilege 15 secret cisco
 int g0/0
 ip address 192.168.0.102 255.255.255.0
+no shut
+end
+wr
+
+# Switch config
+conf t
+hostname S2
+ip domain-name cisco.com
+ip ssh version 2
+crypto key generate rsa modulus 1024
+line vty 0 4
+transport input ssh
+login local
+exit
+username blacognito privilege 15 secret cisco
+int vlan 1
+ip address 192.168.0.100 255.255.255.0
 no shut
 end
 wr
@@ -126,3 +144,21 @@ commit
 
 save
 ```
+
+
+### #5 - Ansible Tower Installation
+
+1. Navigate to this url `https://releases.ansible.com/ansible-tower/setup-bundle/` and locate the `.tar.gz` file that corresponds with the RHEL version that you are running.
+2. Right-click and copy the link of the `.tar.gz` file.
+3. Run this command on the RHEL machine: `wget https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-3.8.5-1.tar.gz`
+
+4. Run this command: `tar -xzvf ansible-tower-setup-bundle-3.8.5-1.tar.gz`
+5. Enter the new folder: `cd ansible-tower-setup-bundle-3.8.5-1`
+6. Open the `inventory` file and add `password` as the value on all variables that contain *'password'* (Should be four variables).
+    - NB! *'password'* is only used for the lab environment, please change if it is supposed to be used in a non-lab environment.
+7. Run the shell script: `sudo ./setup.sh`
+8. Run `ifconfig` to check your IP address. This is the IP address that you are going to use to browse to Ansible Tower.
+9. Enter the IP address into a web browser and login to Ansible Tower using username: ´admin´ and password ´password´ (same password that was entered in the `inventory` file earlier.)
+10. You will be prompted for a subscription. Just provide your Red Hat account credentials to receive a trial subscription.
+11. You will have to log in again after the previous step. 
+12. Good To Go!
