@@ -1,0 +1,4 @@
+ansible_user: "blacognito"
+ansible_password: "cisco"
+ansible_network_os: "cisco.ios.ios"
+napalm_platform: "ios"
