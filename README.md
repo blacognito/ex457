@@ -1,6 +1,6 @@
 # Lab Setup
 
-## #1 - Download and Install RHEL
+## 1 - Download and Install RHEL
 1. Log into Red Hat and download image. Image used in setup: `rhel-8.5-x86_64-dvd` 
     - Newer versions can also be used, but make sure that the image version you choose has a supported version of ansible tower. 
     - Check here: https://releases.ansible.com/ansible-tower/setup-bundle/
@@ -8,7 +8,7 @@
 
 <br/>
 
-#### **Installation Summary**
+### Installation Summary
 - <u>*Software Selection:*</u>
     Workstation
 - <u>*Installation destination:*</u>
@@ -19,25 +19,28 @@ Choose the disk and make sure storage configuration is set to **'automatic'**
 
 <br/>
 
-## #2 Register System
+## 2 - Register System
 Eexcute these commands after successful installation of RHEL. 
 ```bash
 sudo dnf update
+```
 
-# Use credentials from Red Hat account.
-# Register system
+Run this command to register the system. Use credentials from Red Hat account.
+```
 subscription-manager register --username <username> --password <password>
+```
 
-# Attach subscription.
+Attach subscription.
+```
 subscription-manager attach --auto
-
-# Update repositories.
-# Answer 'y' on all prompts. Update takes a while.
+```
+Update repositories. Answer 'y' on all prompts. Update takes a while.
+```
 sudo dnf update
 ```
 
 
-## #3 Ansible Installation
+## 3 - Ansible Installation
 
 ```bash
 # Check Pythonn version
@@ -56,10 +59,10 @@ ansible --version
 pip3.9 install paramiko
 ```
 
-## #4 EVE-NG Lab Setup
+## 4 - EVE-NG Lab Setup
 <br>
 
-### #4-1 - Cisco Devices
+### 4.1 - Cisco Devices
 ```bash
 # Router Config
 conf t
@@ -129,7 +132,7 @@ ssh -vvvv blacognito@192.168.0.101
 Might be that you have to remove an RSA key fingerprint from `~/.ssh/known_hosts`
 
 
-### #4-2 - VyOS Device
+### 4.2 - VyOS Device
 ```bash
 # username: vyos
 # password: vyos
@@ -146,7 +149,7 @@ save
 ```
 
 
-### #5 - Ansible Tower Installation
+### 5 - Ansible Tower Installation
 
 1. Navigate to this url `https://releases.ansible.com/ansible-tower/setup-bundle/` and locate the `.tar.gz` file that corresponds with the RHEL version that you are running.
 2. Right-click and copy the link of the `.tar.gz` file.
