@@ -21,10 +21,9 @@ Choose the disk and make sure storage configuration is set to **'automatic'**
 
 ## 2 - Register System
 Eexcute these commands after successful installation of RHEL. 
-```bash
+```
 sudo dnf update
 ```
-
 Run this command to register the system. Use credentials from Red Hat account.
 ```
 subscription-manager register --username <username> --password <password>
@@ -42,20 +41,24 @@ sudo dnf update
 
 ## 3 - Ansible Installation
 
+Check Python version:
 ```bash
-# Check Pythonn version
 python3 --version
-
-# If version is lower than 3.8, then update python.
+````
+If version is lower than 3.8, then update python:
+```
 sudo yum install python3.9
-
-# Install ansible
+```
+Install ansible:
+```
 pip3.9 install ansible
-
-#Check ansible version
+````
+Check ansible version:
+```
 ansible --version
-
-# Install paramiko
+```
+Install paramiko:
+```
 pip3.9 install paramiko
 ```
 
