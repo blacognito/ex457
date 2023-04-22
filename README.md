@@ -1,35 +1,49 @@
 # Lab Setup
 
 ## 1 - Download and Install RHEL
-1. Log into Red Hat and download image. Image used in setup: `rhel-8.5-x86_64-dvd` 
+1. Log into https://developers.redhat.com/ and download a RHEL image *(You have to create a user)*. Image used in setup: `rhel-8.5-x86_64-dvd` 
     - Newer versions can also be used, but make sure that the image version you choose has a supported version of ansible tower. 
     - Check here: https://releases.ansible.com/ansible-tower/setup-bundle/
 2. When loading the image into the hypervisor make sure to create the virtual machine without the image so that you will be able to change the settings before adding the image and starting the machine. 
 
-<br/>
+### 1.1 VMWare / Virtualbox
+- When setting up the Linux machine it is recommended to use 2048MB of RAM and 25GB of storage.
+- Before starting the machine, remember to go under network and change the adapter from *NAT* to *Bridge Adapter*. 
+    - So that the Linux machine will be able to get an IP address and act as its very own machine on the network.
 
-### Installation Summary
-- <u>*Software Selection:*</u>
-    Workstation
-- <u>*Installation destination:*</u>
-Choose the disk and make sure storage configuration is set to **'automatic'**
-- <u>*Network & Hostname:* </u> Make sure the ethernet is toggled on
-- *Create root password.*
-- *Create user and make sure it is administrator.*
+### 1.2 Installation
+When you have started up the virtual machine just follow the on-screen installationg guide until you get to the *Installation Summary* page. Here you have to fill in some information that will be used in the installation. Information needed is listed below:
 
-<br/>
+- **Localization**: 
+    - Choose a *Keyboard*, *Language* and *Time & Date* 
+- **Software**:
+    - *Software Selection*: Choose `Workstation`
+- **System**
+    - *Installation Destination*: Click the hard drive and make sure *Storage Configuration* is set to `Automatic`
+    - *Network and Host Name*: Choose the port and toggle the switch to `on`
+- **User Settings**
+    - *Root Password*: Create a root password.
+    - *User Creation*: Create a user and make it administrator.
 
-## 2 - Register System
-Eexcute these commands after successful installation of RHEL. 
+After filling in the correct information you can now continue the installation.
+
+When you get to the *Initial Setup* page you have to accept a licensing agreement. Just click on *License Information* and accept the agreement. You can now finish the configuration and log into the machine. 
+
+
+## 1.3 - Register System
+The installation has now been done successfully, but we have to register the system in order to be able to receive software updates.
+If you open up a terminal and execute this command: 
 ```
 sudo dnf update
 ```
-Run this command to register the system. Use credentials from Red Hat account.
+It will say that the system is not registered with an entitlement server. So we have to register our system. 
+<br>
+<br>
+Open a terminal and execute the following commands to register the system. Use credentials from Red Hat account.
 ```
 subscription-manager register --username <username> --password <password>
 ```
-
-Attach subscription.
+Attach subscription. Use root password when prompted.
 ```
 subscription-manager attach --auto
 ```
@@ -38,8 +52,12 @@ Update repositories. Answer 'y' on all prompts. Update takes a while.
 sudo dnf update
 ```
 
+## 1.4 - Successful Installation
+- RHEL Installation is now complete and it would be smart to take a snapshot of the virtual machine at this point in case you want to spin up another machine or revisit the machine at this state.
+- It will also be better to work on the Linux machine using Remote SSH within VSCode (full access to terminal and files). 
 
-## 3 - Ansible Installation
+
+## 2 - Ansible Installation
 
 Check Python version:
 ```bash
@@ -62,10 +80,8 @@ Install paramiko:
 pip3.9 install paramiko
 ```
 
-## 4 - EVE-NG Lab Setup
-<br>
-
-### 4.1 - Cisco Devices
+## 3 - EVE-NG Lab Setup
+### 3.1 - Cisco Devices
 ```bash
 # Router Config
 conf t
@@ -135,7 +151,7 @@ ssh -vvvv blacognito@192.168.0.101
 Might be that you have to remove an RSA key fingerprint from `~/.ssh/known_hosts`
 
 
-### 4.2 - VyOS Device
+### 3.2 - VyOS Device
 ```bash
 # username: vyos
 # password: vyos
@@ -152,7 +168,7 @@ save
 ```
 
 
-### 5 - Ansible Tower Installation
+### 4 - Ansible Tower Installation
 
 1. Navigate to this url `https://releases.ansible.com/ansible-tower/setup-bundle/` and locate the `.tar.gz` file that corresponds with the RHEL version that you are running.
 2. Right-click and copy the link of the `.tar.gz` file.
