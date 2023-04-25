@@ -75,7 +75,7 @@ Check ansible version:
 ```
 ansible --version
 ```
-Install paramiko:
+Install paramiko so ansible will be able to make SSH connections:
 ```
 pip3.9 install paramiko
 ```
