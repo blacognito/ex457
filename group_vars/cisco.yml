@@ -1,3 +1,0 @@
-ansible_user: "blacognito"
-ansible_password: "cisco"
-ansible_network_os: ios

@@ -13,5 +13,3 @@
         #msg: "{{ ansible_facts['net_hostname'] }}"
         #msg: "{{ ansible_facts['net_hostname'] }} has an IP address of : {{ item }} configured"
       #loop: "{{ ansible_facts['net_all_ipv4_address'] }}"
-
-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
