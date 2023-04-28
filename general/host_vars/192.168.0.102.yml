@@ -1,0 +1,4 @@
+---
+# Variables from host_vars will always take precedence over variables from less granular origins, such as group_vars etc. !!
+
+ntp: "2.2.2.2" 
