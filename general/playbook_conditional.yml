@@ -1,0 +1,20 @@
+---
+# Documentation: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html#basic-conditionals-with-when
+
+- name: "Test Conditonal Logic"
+  hosts: us
+  gather_facts: true 
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1"
+      debug: 
+        msg: "{{ ansible_facts }}"
+        #msg: "{{ ansible_facts.net_interfaces  }}"
+        #msg: "{{ ansible_facts['net_interfaces']  }}"
+        #msg: "{{ ansible_net_interfaces]  }}"
+
+        #msg: "Interface {{ item }} has an IP address of {{ item['value']['ipv4'][0]['address'] }}" 
+      #loop: "{{ ansible_facts.net_interfaces | dict2items }}"
+      #when: item['value']['lineprotocol'] == "up"
+      #when: item['value']['ipv4'] != []

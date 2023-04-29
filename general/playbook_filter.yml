@@ -1,0 +1,28 @@
+---
+# Documentation: https://docs.ansible.com/ansible/2.8/user_guide/playbooks_filters.html#ip-address-filter
+#                https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_filters.html#transforming-lists-into-dictionaries
+- name: "Filter"
+  hosts: uk
+
+  tasks:  
+    - name: "Task 1"
+      vars:
+        mylist:
+          - 5
+          - 10
+          - 44
+          - 21
+      debug: 
+        msg: "{{ mylist | max }}"  # max value from list
+
+    - name: "Task 2"
+      vars: 
+        us_prefixes: 
+          - "192.168.0.0/24"
+          - "10.0.0.0/24"
+        
+        uk_prefixes:
+          - "192.168.1.0/24"
+          - "10.0.0.0/24"
+      debug: 
+        msg: "{{ us_prefixes | symmetric_difference(uk_prefixes) }}"  # Difference between two lists

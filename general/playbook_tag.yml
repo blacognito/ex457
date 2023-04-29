@@ -1,0 +1,30 @@
+---
+# Run playbook with this command:
+#   ansible-playbook playbook_tag.yml --tags ntp
+# Documentation: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html
+
+- name: "Tag"
+  hosts: us 
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1 - Create user"
+      cisco.ios.ios_config:
+        lines:
+          - username tag priv 15 secret user123
+      register: user_output
+      tags: create_user
+      
+    - debug: var=user_output
+      tags: create_user
+
+    - name: "Task 2 - NTP Config"
+      cisco.ios.ios_config:
+        lines:
+          - ntp server 1.2.3.4
+      register: ntp_output
+      tags: ntp
+    
+    - debug: var=ntp_output
+      tags: ntp

@@ -1,0 +1,41 @@
+---
+# To be able to use the ip address filter you must first install netaddr:
+#   pip3.9 install netaddr
+# Documentation: https://docs.ansible.com/ansible/2.8/user_guide/playbooks_filters.html#ip-address-filter
+
+- name: "IP Address Filter"
+  hosts: "192.168.0.101"
+  
+  tasks:
+    - name: "Task 1"
+      vars:
+        my_ip: "192.168.0.100"
+      debug:
+        msg: "{{ my_ip | ipaddr}}"    # validates wether or not a valid ip address format
+    
+    - name: "Task 2"
+      vars:
+        my_ip:
+          - "192.168.1.1"
+          - " 10.0.0.1"
+          - "10.0.0.0.1"
+          - "2001:db8:aaaa:bbbb::2"
+          - "192.168.333.1"
+          - "8.8.8.8"
+      debug:
+        msg: "{{ my_ip | ipv6 }}"    # validates wether or not a valid ipv6 address format
+
+    - name: "Task 3"
+      vars:
+        my_ip: "192.168.0.100/24"
+      debug:
+        msg: "{{ my_ip | ipaddr('address') }}"    # validates wether or not a valid ip address format and only gets address, not prefix
+
+    - name: "Task 4"
+      vars:
+        my_ip: "192.168.0.100/24"
+      debug:
+        msg: "{{ my_ip | ipaddr('network') }}"    # validates wether or not a valid ip address format and gets network address
+
+    
+    
