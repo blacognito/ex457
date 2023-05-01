@@ -1,0 +1,16 @@
+---
+
+- name: "Test Register"
+  hosts: "192.168.0.101"
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: "Push NTP Config"
+      cisco.ios.ios_config:
+        src: "ntp.j2"
+      register: ntp_result
+
+    - name: "Print NTP"
+      debug:
+        msg: "{{ ntp_result }}"

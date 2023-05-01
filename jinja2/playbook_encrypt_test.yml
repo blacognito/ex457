@@ -1,0 +1,17 @@
+---
+
+- name: "Test Encryption"
+  hosts: uk-encrypt
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1"
+      debug:
+        msg: "{{ secret_bgp }}"
+      tags: encrypt1
+    
+    - name: "Task 2"
+      debug:
+        msg: "{{ snmp }}"
+      tags: encrypt2

@@ -1,0 +1,25 @@
+---
+
+- name: "Test Handler"
+  hosts: "192.168.0.101"
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: "Push NTP Config"
+      cisco.ios.ios_config:
+        src: "ntp.j2"
+      register: ntp_result
+      notify: ntp_handler
+
+  handlers:
+    - name: ntp_handler   
+      debug:
+        msg: "{{ ntp_result }}"
+      tags:  handler1
+
+    - name: "Handler 1 - This will check for NTP updates"
+      listen: ntp_handler
+      debug:
+        msg: "{{ ntp_result }}"
+      tags: handler2
