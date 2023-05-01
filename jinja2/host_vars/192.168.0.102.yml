@@ -1,0 +1,18 @@
+---
+# Variables from host_vars will always take precedence over variables from less granular origins, such as group_vars etc. !!
+
+ntp: "2.2.2.2" 
+
+BGP:
+  ASN: "65002"
+  peers: 
+    - neighbor: "10.0.0.1"
+      peer_asn: "65001"
+
+    - neighbor: "12.12.12.12"
+      peer_asn: "12"
+
+eigrp_style: "normal"
+
+eigrp: 
+  asn: "2"

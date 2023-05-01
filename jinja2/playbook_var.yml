@@ -1,0 +1,22 @@
+---
+# Make sure to remove from /templates folder when testing with other folders, or else ansible will try to look in the templates folder.
+- name: "Test Variable Substitution"
+  hosts: us
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1"
+      cisco.ios.ios_config:
+        src: bgp.j2         # When bgp.j2 is in then /templates folder
+      tags: template
+    
+    - name: "Task 2"
+      cisco.ios.ios_config:
+        src: /home/blacognito/ex457/jinja2/bgp/bgp.j2     # When bgp.j2 is in then /bgp folder. Notice absolute path specified
+      tags: absolute
+
+    - name: "Task 3"
+      cisco.ios.ios_config:
+        src: bgp/bgp.j2      # Also works with folder and file specified. NB!! Do not add leading '/'
+      tags: bgp

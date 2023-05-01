@@ -1,0 +1,11 @@
+---
+
+- name: "Print var info"
+  hosts: us
+  gather_facts: no
+
+  tasks:
+    - name: "Display vars"
+      debug:
+        # hostvars is used to access information about hosts in inventory
+        msg: "{{ eigrp_style }}"   

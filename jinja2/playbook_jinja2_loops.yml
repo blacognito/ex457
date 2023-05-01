@@ -1,0 +1,18 @@
+---
+- name: "Jinja 2 Loops"
+  hosts: us
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1"
+      cisco.ios.ios_config:
+        src: "bgp2.j2"
+      tags: bgp2
+    
+      # Make sure to add loopback0 interfaces on the devices for this specific task 
+    - name: "Task 2"
+      cisco.ios.ios_config:
+        src: "bgp3.j2"
+      tags: bgp3
+    
