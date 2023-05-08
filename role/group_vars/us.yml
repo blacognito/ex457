@@ -1,0 +1,5 @@
+---
+
+ntp: "5.5.5.5"
+secret_bgp: 1234
+secret_ospf: "5"

@@ -1,0 +1,19 @@
+---
+
+- name: "EIGRP Role Playbook"
+  hosts: 192.168.0.101
+  connection: network_cli
+
+  roles:
+    - eigrp_role
+
+  tasks:
+    - name: "Further verify"
+      cisco.ios.ios_command:
+        commands:
+          - "show ip eigrp interface"
+      register: eigrp_output 
+    
+    - name: "Print"
+      debug:  
+        msg: "{{ eigrp_output }}"

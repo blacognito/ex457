@@ -1,0 +1,21 @@
+---
+
+- name: "Playbook 1 - Testing Genie"
+  hosts: 192.168.0.101
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1 - Send a show command"
+      cisco.ios.ios_command:
+        commands: "show version"
+      register: show_version_output
+    
+    - name: "Task 2 - Parse show command"
+      set_fact: 
+        parsed_data: >-
+          {{ show_version_output.stdout[0] | clay584.genie.parse_genie(
+          command='show version', os='ios') }} 
+
+    - name: "Task 3 - Print output"
+      debug:
+        msg: " This device has been up for {{ parsed_data.version.uptime }}"

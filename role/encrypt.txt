@@ -1,0 +1,20 @@
+# List possible arguments:
+ansible-vault --help
+
+# you will be prompted for a password, this will be used to encrypt the file
+ansible-vault encrypt <filename>
+
+# Run playbook that gets data from encrypted file. You will be prompted to write inn vault password for encrypted file
+ansible-playbook <playbook_name> --ask-vault-pass
+
+# View an encrypted file in terminal (similar to cat), without decrypting file. You will be prompted for password
+ansible-vault view <filename>
+
+# Takes you into a vim session where you can edit the file without decrypting the file
+ansible-vault edit <filename>
+
+# Decrypt file. You will be prompted for password
+ansible-vault decrypt <filename>
+
+# Give a new key to the file. You will be prompted for the old password and you have to create a new one
+ansible-vault rekey <filename>

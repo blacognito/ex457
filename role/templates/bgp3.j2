@@ -1,0 +1,10 @@
+router bgp {{ BGP.ASN }} 
+
+{% for peer in BGP.peers %}
+{% if peer.peer_asn == "65002" %}
+neighbor {{ peer.neighbor }} remote-as {{ peer.peer_asn }}
+neighbor {{ peer.neighbor }} update-source loopback0
+{% else %}
+neighbor {{ peer.neighbor }} remote-as {{ peer.peer_asn }}
+{% endif %}
+{% endfor %}
