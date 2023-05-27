@@ -1,0 +1,16 @@
+configure
+set system host-name R3
+commit
+set interface ethernet eth0 address 192.168.0.103/24
+set interface ethernet eth1 address 10.2.3.2/30
+set service ssh port 22
+commit
+save
+
+set protocols ospf area 0 network 10.2.3.0/30
+set protocols ospf parameters router-id 3.3.3.3
+commit 
+
+
+# Show cmd
+run show ip ospf neighbor

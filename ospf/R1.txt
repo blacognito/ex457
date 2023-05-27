@@ -1,0 +1,39 @@
+host R1
+domain-name cisco.com
+ssh version 2
+crypto key generate rsa modulus 1024
+line vty 0 4
+transport input ssh
+login local
+exit
+
+username blacognito priv 15 secret cisco
+
+int g0/0
+ip add 192.168.0.101 255.255.255.0
+no sh
+exit
+
+int g0/1
+ip add 10.1.2.1 255.255.255.252
+no sh
+exit
+
+wr
+
+
+router ospf 1
+router-id 1.1.1.1
+network 10.1.2.0 0.0.0.3 area 0
+exit
+
+int loo8
+ip add 8.8.8.8 255.255.255.255
+exit
+
+ip route 0.0.0.0 0.0.0.0 loopback8
+
+router ospf 1 
+default-information originate
+exit
+
