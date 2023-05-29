@@ -1,0 +1,33 @@
+conf t
+
+vlan 5
+name FIVE
+vlan 10
+name TEN
+exit
+
+int vlan 5
+ip add 192.168.5.1. 255.255.255.0
+no sh
+exit
+
+int vlan 10
+ip add 192.168.10.1 255.255.255.0
+no sh
+exit
+
+int g0/3
+switchport mode access
+switchport access vlan 5
+exit
+
+int g1/0
+switchport mode access
+switchport access vlan 10
+exit
+
+int g0/2
+switchport trunk encapsulation dot1q
+switchport mode trunk 
+exit
+
