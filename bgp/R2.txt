@@ -1,0 +1,9 @@
+
+conf t
+router bgp 2
+bgp router-id 2.2.2.2
+neighbor 10.1.2.1 remote-as 1
+neighbor 10.2.3.2 remote-as 3
+neighbor 10.2.4.2 remote-as 4
+exit
+

@@ -1,0 +1,19 @@
+conf t
+
+int lo99
+ip add 99.99.99.99 255.255.255.255
+exit
+
+intlo100
+ip add 100.100.100.100 255.255.255.255
+exit
+
+
+router bgp 1
+bgp router-id 1.1.1.1
+neighbor 10.1.2.2 remote-as 
+network 8.8.8.8 mask 255.255.255.255
+network 99.99.99.99 mask 255.255.255.255
+network 100.100.100.100 mask 255.255.255.255
+exit
+
