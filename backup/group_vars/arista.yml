@@ -1,0 +1,4 @@
+ansible_user: "blacognito"
+ansible_password: "arista"
+ansible_network_os: "arista.eos.eos"
+napalm_platform: "eos"

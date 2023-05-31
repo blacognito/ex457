@@ -1,0 +1,44 @@
+---
+
+- name: "Play 1"
+  hosts: localhost
+
+  tasks:
+    - name: "Task 1 of Play 1 - Collect Data Info"
+      ansible.builtin.setup:
+        filter:
+          - "ansible_date_time"
+    
+    - name: "Task 2 of Play 1 - Save Info as Variable"
+      set_fact:
+        TD: "{{  ansible_date_time.date}}"
+
+- name: "Play 2"
+  hosts: arista
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1 of Play 2  - Create a Diff Directory"
+      file:
+        path: "diffs/{{ hostvars.localhost.TD }}/{{ inventory_hostname }}"
+        state: directory
+      run_once: true          # only use when running on localhost, otherwise it will prevent creating directories for other devices
+  
+    - name: "Task 2 of Play 2 - Use NAPALM To Restore Backup Config"
+      napalm_install_config:
+        hostname: "{{ ansible_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        dev_os: "{{ napalm_platform }}"
+        config_file: "{{ inventory_hostname }}-running-config.txt"
+        commit_changes: true
+        replace_config: true
+        get_diffs: true
+        diff_file: "diffs/{{ hostvars.localhost.TD }}/{{ inventory_hostname }}/{{ inventory_hostname }}-diffs.txt"
+        #optional_args:             # Use when running on cisco devices and after running cmds from backup.txt on cisco device
+        #  global_delay_factor: 2   # and running converter.py on config file
+      register: "{{ result }}"
+
+    - name: "Task 3 of Play 2 - Print"
+      debug:  
+        msg: "{{ result }}"

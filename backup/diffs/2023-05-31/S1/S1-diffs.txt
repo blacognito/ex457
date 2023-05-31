@@ -1,0 +1,6 @@
+-hostname RANDOM
++hostname S1
+-!
+-router ospf 1
+-   router-id 1.1.1.1
+-   max-lsa 12000

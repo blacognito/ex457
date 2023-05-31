@@ -1,0 +1,20 @@
+# change date
+sudo timedatectl set-time '2023-01-01'
+
+# check date
+date
+
+
+# enable when using napalm restore on cisco device
+conf t
+ip scp server enable 
+archive
+path flash:archive 
+write-memory 
+
+# NB ! After you run the playbook_example2.yml playbook for cisco devices, it may remove the cmds above from the device 
+# NB ! Make sue that the top line in startup_config file is deleted, it will cause an error
+    the top line usually has bytes and stuff in it
+    the first piece on config it should encounter is the: version <number> line
+    
+!! NB Check NAPALM Docs if problem. 
