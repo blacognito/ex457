@@ -1,0 +1,19 @@
+conf t 
+host S2 
+
+username blacognito priv 15 secret cisco
+ip domain-name cisco.com
+ip ssh v2
+crypto key generate rsa mod 1024
+line vty 0 15
+transport input ssh 
+login local
+
+
+int g0/0
+no switchport
+ip add 192.168.0.107 255.255.255.0
+no shut
+exit
+
+wr

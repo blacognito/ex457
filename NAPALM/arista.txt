@@ -1,0 +1,14 @@
+conf t 
+username blacognito priv 15 secret arista 
+
+management api http-commmands 
+no shutdown
+exit 
+
+host S1 
+
+int m1 
+ip add 192.168.0.106 255.255.255.0
+no shut
+
+wr

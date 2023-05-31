@@ -1,0 +1,7 @@
+ansible-galaxy collection install arista.eos 
+
+# in venv
+pip3.9 install napalm
+
+# in directory you are working in
+git clone https://github.com/napalm-automation/napalm-ansible.git
