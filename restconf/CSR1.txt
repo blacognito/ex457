@@ -1,0 +1,18 @@
+conf t
+hostname CSR1
+no serv config
+no boot net
+
+username blacognito priv 15 secret cisco
+
+restconf 
+ip http server
+ip http authentication local
+ip http secure-server 
+netconf-yang
+
+int g1
+ip add 192.168.0.101 255.255.255.0
+no sh
+
+wr
